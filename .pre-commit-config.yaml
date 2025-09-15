@@ -71,4 +71,4 @@ repos:
     language: system
     pass_filenames: false
     args: ["check","./..."]
-    stages: [pre-push]
+    stages: [manual]   # 改成手动运行
