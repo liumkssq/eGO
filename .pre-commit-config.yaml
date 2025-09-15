@@ -4,37 +4,37 @@ repos:
     # ---------- 快速提交前运行 ----------
   - id: gofumpt
     name: gofumpt
-    entry: D:/gopath/bin/gofumpt.exe
+    entry: gofumpt
     language: system
     files: \.go$
-    pass_filenames: true     # 传递文件
-    args: ["-w"]             # 修改文件，而不是 stdin/stdout
+    pass_filenames: true
+    args: ["-w"]
 
   - id: goimports
     name: goimports
-    entry: D:/gopath/bin/goimports.exe
+    entry: goimports
     language: system
     files: \.go$
-    pass_filenames: true     # 传递文件
-    args: ["-w"]             # 修改文件
+    pass_filenames: true
+    args: ["-w"]
 
   - id: golangci-lint
     name: golangci-lint
-    entry: D:/gopath/bin/golangci-lint.exe
+    entry: golangci-lint
     language: system
     pass_filenames: false
     args: ["run", "./..."]
 
   - id: staticcheck
     name: staticcheck
-    entry: D:/gopath/bin/staticcheck.exe
+    entry: staticcheck
     language: system
     pass_filenames: false
     args: ["./..."]
 
   - id: misspell
     name: misspell
-    entry: D:/gopath/bin/misspell.exe
+    entry: misspell
     language: system
     files: \.go$
     pass_filenames: true
@@ -43,18 +43,15 @@ repos:
   # ---------- 慢检查（建议在 push 或 CI 执行） ----------
   - id: gotestsum
     name: gotestsum
-    entry: D:/gopath/bin/gotestsum.exe
+    entry: gotestsum
     language: system
     pass_filenames: false
     args: ["--format","testname","--","-race","-cover","./..."]
     stages: [pre-push]
-    files: \_test\.go$   # 只在有测试文件时执行
-
-
 
   - id: gosec
     name: gosec
-    entry: D:/gopath/bin/gosec.exe
+    entry: gosec
     language: system
     pass_filenames: false
     args: ["-exclude-dir=vendor","-exclude-dir=testdata","./..."]
@@ -62,7 +59,7 @@ repos:
 
   - id: govulncheck
     name: govulncheck
-    entry: D:/gopath/bin/govulncheck.exe
+    entry: govulncheck
     language: system
     pass_filenames: false
     args: ["./..."]
@@ -70,8 +67,11 @@ repos:
 
   - id: go-licenses
     name: go-licenses
-    entry: D:/gopath/bin/go-licenses.exe
+    entry: bash
     language: system
     pass_filenames: false
-    args: ["check","./..."]
-    stages: [manual]   # 改成手动运行
+    args:
+    - -c
+    - |
+      go-licenses check $(go list -m all | tail -n +2)
+    stages: [manual]
