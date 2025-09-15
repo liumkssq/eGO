@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	_ = 10
-
-	println("Hello, World!")
+	for i := range 10 {
+		println("Hello, World!", i)
+	}
 }
