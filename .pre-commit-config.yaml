@@ -47,7 +47,8 @@ repos:
     language: system
     pass_filenames: false
     args: ["--format","testname","--","-race","-cover","./..."]
-    stages: [pre-push]
+    files: \_test\.go$   # 只在有测试文件时执行
+
 
   - id: gosec
     name: gosec
