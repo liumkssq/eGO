@@ -7,14 +7,16 @@ repos:
     entry: D:/gopath/bin/gofumpt.exe
     language: system
     files: \.go$
-    pass_filenames: false    # 使用 stdin/stdout，避免 -w 冲突
+    pass_filenames: true     # 传递文件
+    args: ["-w"]             # 修改文件，而不是 stdin/stdout
 
   - id: goimports
     name: goimports
     entry: D:/gopath/bin/goimports.exe
     language: system
     files: \.go$
-    pass_filenames: false    # 使用 stdin/stdout
+    pass_filenames: true     # 传递文件
+    args: ["-w"]             # 修改文件
 
   - id: golangci-lint
     name: golangci-lint
@@ -35,7 +37,7 @@ repos:
     entry: D:/gopath/bin/misspell.exe
     language: system
     files: \.go$
-    pass_filenames: false
+    pass_filenames: true
     args: ["-error"]
 
   # ---------- 慢检查（建议在 push 或 CI 执行） ----------
